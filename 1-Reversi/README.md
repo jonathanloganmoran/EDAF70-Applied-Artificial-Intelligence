@@ -50,7 +50,7 @@ If so – congrats! You're all set to play 🎉
 This program supports three "computer" difficulty modes (AI strategies):
    1. **Easy**: random choice;
    2. **Medium**: best move calculation using Minimax adversarial search with alpha-beta pruning;
-   ~~3. **Hard**: best move calculation (using _Medium_ strategy), but with heuristic function evaluation.~~
+   3. ~~**Hard**: best move calculation (using _Medium_ strategy), but with heuristic function evaluation.~~ _Not yet implemented._
 
 ### Random choice
 When **Easy** is selected, the AI opponent is configured with a very basic random move evaluator.
@@ -74,12 +74,12 @@ _Not yet implemented._
 
 
 ## Future Implementations
--[x] Support for classic Reversi rule set
--[x] Improve GUI design and functionality
--[ ] Refactor codebase (AIMA `Game` class)
--[ ] Heuristic-based evaluation
--[ ] Improve performance (e.g., transposition table, move ordering)
--[ ] Implement Monte Carlo Tree Search (MCTS)
+- [x] Support for classic Reversi rule set
+- [x] Improve GUI design and functionality
+- [ ] Refactor codebase (AIMA `Game` class)
+- [ ] Heuristic-based evaluation
+- [ ] Improve performance (e.g., transposition table, move ordering)
+- [ ] Implement Monte Carlo Tree Search (MCTS)
 
 ## Credits
 This assignment was prepared by J. Malec et al., VT1 2019 (link [here](https://web.archive.org/web/20190514105836/http://cs.lth.se/edaf70/programming-assignments-2019/search/)).
@@ -88,7 +88,7 @@ This assignment was prepared by J. Malec et al., VT1 2019 (link [here](https://w
 
 *  _Paradigms of Artificial Intelligence_, Peter Norvig (Ch. 18).
 
-*  [1] Github - Rahul Arya (https://github.com/rahularya50/reversi).
+*  [1] GitHub - Rahul Arya (https://github.com/rahularya50/reversi).
 
 Helpful explanations:
 *  [Algorithms Explained - minimax and alpha-beta pruning](https://www.youtube.com/watch?v=l-hh51ncgDI).

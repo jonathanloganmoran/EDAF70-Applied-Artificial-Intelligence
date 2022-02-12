@@ -36,11 +36,11 @@ public class Grid {
 	 * Moves robot according to a probabilistic strategy.
 	 * 
 	 * The same heading h_t is selected for h_(t+1) with probability:
-	 * 		P( h_(t+1)  =  h_t  |  not encountering a wall ) = 0.7
-     *      P( h_(t+1)  =  h_t  |  encountering a wall     ) = 0.0
+	 *    P( h_(t+1)  =  h_t  |  not encountering a wall ) = 0.7
+     *    P( h_(t+1)  =  h_t  |  encountering a wall     ) = 0.0
      * or a new heading h_(t+1) is selected with probability:
-     * 		P( h_(t+1) !=  h_t  |  not encountering a wall ) = 0.3
-     *      P( h_(t+1) !=  h_t  |  encountering a wall     ) = 1.0
+     *    P( h_(t+1) !=  h_t  |  not encountering a wall ) = 0.3
+     *    P( h_(t+1) !=  h_t  |  encountering a wall     ) = 1.0
 	 */
 	public void moveRobot() {
 		ArrayList<Position> positions = getCurrentPosition().getDirectNeighbours(rows, cols);

@@ -6,24 +6,24 @@ import control.EstimatorInterface;
 
 public class HMMLocalizer implements EstimatorInterface {
 	
-		/* For colourising the console output (ANSI plug-in required) */
-		public static final String ANSI_RESET = "\u001B[0m";
-		public static final String ANSI_GREEN = "\u001B[32m";
-		public static final String ANSI_RED = "\u001B[31m";
-		public int rows, cols;
-		public int head;
-		private Grid grid;
-		private Sensor sensor;
-		private Position[] states;
-		/* Transition matrix */
-		private double[][] T;
-		/* Sensor matrix */
-		private double[][] O;
-		/* Forward vector */
-		private double[] f;
-		/* Debugging */
-		private int nUpdates;
-		private double avgDistance;
+	/* For colourising the console output (ANSI plug-in required) */
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_GREEN = "\u001B[32m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public int rows, cols;
+	public int head;
+	private Grid grid;
+	private Sensor sensor;
+	private Position[] states;
+	/* Transition matrix */
+	private double[][] T;
+	/* Sensor matrix */
+	private double[][] O;
+	/* Forward vector */
+	private double[] f;
+	/* Debugging */
+	private int nUpdates;
+	private double avgDistance;
 	
 	/**
 	 * Performs robot localisation using a Hidden Markov Model and forward update step.

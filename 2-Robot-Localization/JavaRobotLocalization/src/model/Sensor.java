@@ -15,10 +15,10 @@ public class Sensor {
 	 * The sensor reports the estimated robot location based on a probability of error.
 	 * 
 	 * The sensor reports:
-	 * 		The true location of the robot L with probability 0.1.
-	 *   	Any of the n_Ls existing surrounding fields L_s with probability 0.05 each.
-	 *   	Any of the n_Ls2 existing "secondary" surrounding fields L_s2 with probability 0.024 each.
-	 *   	None with probability 1.0 - 0.1 - n_Ls  0.05 - n_Ls2 * 0.025.
+	 *    The true location of the robot L with probability 0.1.
+	 *    Any of the n_Ls existing surrounding fields L_s with probability 0.05 each.
+	 *    Any of the n_Ls2 existing "secondary" surrounding fields L_s2 with probability 0.024 each.
+	 *    None with probability 1.0 - 0.1 - n_Ls  0.05 - n_Ls2 * 0.025.
 	 * 
 	 * @param 	grid		The grid world environment.
 	 * @param 	L			Probability of the sensor reporting the true location of the robot.
