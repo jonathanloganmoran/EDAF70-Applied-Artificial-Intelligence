@@ -1,63 +1,52 @@
-import copy
-from game import Game
+import time
 
+TIME_LIMIT = 5          # Max time (in seconds) for AI to make move
 
-class Minimax(object):
-	"""
-	Implementation of the Minimax algorithm with alpha-beta pruning.
-	"""
-	game = None
-	depth = 0
-	max_depth = 20
+def alphabeta_search(self, state, game, d=4, cutoff_test=None, eval_fn=None):
+    """Search the game space to determine the best action.
 
-	def __init__(self, current_state, player_side, opponent_type, current_side):
-		self.game = Game(False, copy.deepcopy(current_state), copy.copy(player_side), copy.copy(current_side),
-						 copy.copy(opponent_type), 2)    # copy usage to avoid mutability
+    The game tree is searched using alpha-beta pruning. Moves are selected
+    using an evaluation function and a set of heuristics.
+    Credit: [AIMA Chapter 6: Games, or Adversarial Search (`games.py`).]
+    """
 
-	def max_alpha_beta(self, current_state, move_coordinates, alpha, beta):
-		self.depth += 1
-		# Simulate next move
-		temp_board = Game(False, copy.deepcopy(current_state.board), copy.copy(current_state.player_side),
-						  copy.copy(current_state.current_side), copy.copy(current_state.opponent_type), 2, False)
-		temp_board.check_is_valid_move(move_coordinates[0], move_coordinates[1], True)
-		temp_board.place_disc(move_coordinates[0], move_coordinates[1], 'X')
-		temp_board.change_side()
-		possible_moves = temp_board.get_valid_moves()
+    player = game.to_move(state)
+    def max_value(state, alpha, beta, depth):
+        if cutoff_test(state, depth):
+            return eval_fn(state)
+        v = float('-infinity')
+        for a in game.actions(state):
+            v = max(v, min_value(game.result(state, a), alpha, beta, depth+1))
+            if v >= beta:
+                return v
+            alpha = max(alpha, v)
+        return v
 
-		# Check if it was the last move
-		if len(possible_moves) == 0 or self.depth >= self.max_depth:
-			return current_state.calc_score()['X']
-		for move in possible_moves:
-			# Considers opponent's next-best move, minimises opponent's immediate gain
-			score = self.min_alpha_beta(temp_board, move, alpha, beta)
-			alpha = max(score, alpha)
-			if alpha >= beta:
-				return beta
-		return alpha
-
-	def min_alpha_beta(self, current_state, move_coordinates, alpha, beta):
-		self.depth += 1
-		# Simulate next move
-		temp_board = Game(False, copy.deepcopy(current_state.board), copy.copy(current_state.player_side),
-						 copy.copy(current_state.current_side), copy.copy(current_state.opponent_type), 2, False)
-		temp_board.check_is_valid_move(move_coordinates[0], move_coordinates[1], True)
-		temp_board.place_disc(move_coordinates[0], move_coordinates[1], 'O')
-		temp_board.change_side()
-		possible_moves = temp_board.get_valid_moves()
-
-		# Check if it was the last move
-		if len(possible_moves) == 0 or self.depth >= self.max_depth:
-			return current_state.calc_score()['O']
-		for move in possible_moves:
-			# Considers player's best move, maximises player's immediate gain
-			score = self.max_alpha_beta(temp_board, move, alpha, beta)
-			beta = min(score, beta)
-			if alpha >= beta:
-				return alpha
-		return beta
-
-	def minimax_with_pruning(self, move_coordinates):
-		if self.game.current_side == 'X':
-			return self.max_alpha_beta(self.game, move_coordinates, float('-inf'), float('inf'))
-		else:
-			return self.min_alpha_beta(self.game, move_coordinates, float('-inf'), float('inf'))
+    def min_value(state, alpha, beta, depth):
+        if cutoff_test(state, depth):
+            return eval_fn(state)
+        v = float('infinity')
+        for a in game.actions(state):
+            v = min(v, max_value(game.result(state, a), alpha, beta, depth+1))
+            if v <= alpha:
+                return v
+            beta = min(beta, v)
+        return v
+    # Body of alphabeta_search starts here:
+    # The default test cuts off at depth d or at a terminal state
+    cutoff_test = (cutoff_test or
+                  (lambda state, depth: depth > d or game.terminal_test(state)))
+    eval_fn = eval_fn or (lambda state: game.utility(state, player))
+    best_v = float('-infinity')
+    best_a = None
+    start_time = time.time()
+    # TODO: Cut off search after time limit
+    # while time.time() < start_time + TIME_LIMIT:
+    for a in game.actions(state):
+        # TODO: Update progress bar
+        # self.update_progress(time.time())
+        v = min_value(state=state, alpha=float('-infinity'), beta=float('infinity'), depth=0)
+        if v > best_v:
+            best_v = v
+            best_a = a
+    return best_a
